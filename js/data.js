@@ -67,7 +67,7 @@ const createObject = () => {
       checkout: CHECK_TIMES[getRandomPositiveInteger(0, CHECK_TIMES.length-1)],
       features: FEATURES.slice(0, getRandomPositiveInteger(2, FEATURES.length-1)),
       description: DESCRIPTION,
-      photos: PHOTOS.slice(0, getRandomPositiveInteger(2, PHOTOS.length-1)),
+      photos: PHOTOS.slice(0, getRandomPositiveInteger(1, PHOTOS.length)),
     },
     location: {
       lat: LOCATION_LAT,
