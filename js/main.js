@@ -1,4 +1,3 @@
-import {createObjects} from './data.js';
-console.log(
-  createObjects()
-);
+import './data.js';
+import './popup.js';
+
