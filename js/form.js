@@ -42,13 +42,35 @@ const getGuestsErrorMessage = () => {
   }
 };
 
-//const onRoomsChange = () => {
-//pristine.addValidator(guestsField, validateGuests, getGuestsErrorMessage);
-//};
-//console.log(roomsField);
-//formAd.querySelectorAll('[name="rooms"]').forEach((item) => item.addEventListener('change', onRoomsChange));
-
 pristine.addValidator(guestsField, validateGuests, getGuestsErrorMessage);
+
+//Валидация соотношения типа жилья и мин цены за ночь
+const minPriceOption = {
+  'bungalow': 0,
+  'flat': 1000,
+  'hotel': 3000,
+  'house': 5000,
+  'palace': 10000,
+};
+const typeField = formAd.querySelector('[name="type"]');
+const priceField = formAd.querySelector('[name="price"]');
+const MAX_PRICE = 100000;
+const validatePrice = () => (priceField.value >= minPriceOption[typeField.value]) && (priceField.value <= MAX_PRICE);
+const getPriceErrorMessage = () => `Цена должна быть от ${minPriceOption[typeField.value]} до ${MAX_PRICE}`;
+pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
+
+//Синхронизация времени заезда и выезда
+const timein = formAd.querySelector('[name="timein"]');
+const timeout = formAd.querySelector('[name="timeout"]');
+const onChangeTimein = () => {
+  timeout.value = timein.value;
+};
+const onChangeTimeout = () => {
+  timein.value = timeout.value;
+};
+timein.addEventListener('change', onChangeTimein);
+timeout.addEventListener('change', onChangeTimeout);
+
 
 formAd.addEventListener('submit', (evt) => {
   evt.preventDefault();
