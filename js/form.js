@@ -42,11 +42,13 @@ const getGuestsErrorMessage = () => {
   }
 };
 
-const onRoomsChange = () => {
-  pristine.addValidator(guestsField, validateGuests, getGuestsErrorMessage);
-};
-formAd.querySelectorAll('[name="rooms"]').forEach((item) => item.addEventListener('change', onRoomsChange));
+//const onRoomsChange = () => {
+//pristine.addValidator(guestsField, validateGuests, getGuestsErrorMessage);
+//};
+//console.log(roomsField);
+//formAd.querySelectorAll('[name="rooms"]').forEach((item) => item.addEventListener('change', onRoomsChange));
 
+pristine.addValidator(guestsField, validateGuests, getGuestsErrorMessage);
 
 formAd.addEventListener('submit', (evt) => {
   evt.preventDefault();
