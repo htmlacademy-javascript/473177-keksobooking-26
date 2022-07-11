@@ -45,7 +45,6 @@ const getGuestsErrorMessage = () => {
 const onRoomsChange = () => {
   pristine.addValidator(guestsField, validateGuests, getGuestsErrorMessage);
 };
-onRoomsChange();
 formAd.querySelectorAll('[name="rooms"]').forEach((item) => item.addEventListener('change', onRoomsChange));
 
 
