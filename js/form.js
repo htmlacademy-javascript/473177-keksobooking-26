@@ -4,8 +4,12 @@ const formMap = document.querySelector('.map__filters');
 const makeFormInactive = () => {
   formAd.classList.add('ad-form--disabled');
   formMap.classList.add('.map-filters--disabled');
-  formAd.children.disabled = true;
-  formMap.children.disabled = true;
+  formAd.childNodes.forEach((child) => {
+    child.disabled = true;
+  });
+  formMap.childNodes.forEach((child) => {
+    child.disabled = true;
+  });
 };
 
 const makeFormActive = () => {
@@ -81,3 +85,4 @@ formAd.addEventListener('submit', (evt) => {
     console.log('что то пошло не так');
   }
 });
+
