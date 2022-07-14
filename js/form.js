@@ -1,6 +1,21 @@
 const formAd = document.querySelector('.ad-form');
 const formMap = document.querySelector('.map__filters');
 
+const MAX_PRICE = 100000;
+const minPriceOption = {
+  'bungalow': 0,
+  'flat': 1000,
+  'hotel': 3000,
+  'house': 5000,
+  'palace': 10000,
+};
+const roomsOption = {
+  '1': '1',
+  '2': ['2', '1'],
+  '3': ['3', '2', '1'],
+  '100': '0',
+};
+
 const makeFormsInactive = () => {
   formAd.classList.add('ad-form--disabled');
   formMap.classList.add('map-filters--disabled');
@@ -33,12 +48,7 @@ const pristine = new Pristine(formAd, {
 //Валидация соотношения количества гостей и комнат
 const roomsField = formAd.querySelector('[name = "rooms"]');
 const guestsField = formAd.querySelector('[name = "capacity"]');
-const roomsOption = {
-  '1': '1',
-  '2': ['2', '1'],
-  '3': ['3', '2', '1'],
-  '100': '0',
-};
+
 
 const validateGuests = () => roomsOption[roomsField.value].includes(guestsField.value);
 const getGuestsErrorMessage = () => {
@@ -53,16 +63,8 @@ const getGuestsErrorMessage = () => {
 pristine.addValidator(guestsField, validateGuests, getGuestsErrorMessage);
 
 //Валидация соотношения типа жилья и мин цены за ночь
-const minPriceOption = {
-  'bungalow': 0,
-  'flat': 1000,
-  'hotel': 3000,
-  'house': 5000,
-  'palace': 10000,
-};
 const typeField = formAd.querySelector('[name="type"]');
 const priceField = formAd.querySelector('[name="price"]');
-const MAX_PRICE = 100000;
 const validatePrice = () => (priceField.value >= minPriceOption[typeField.value]) && (priceField.value <= MAX_PRICE);
 const getPriceErrorMessage = () => `Цена должна быть от ${minPriceOption[typeField.value]} до ${MAX_PRICE}`;
 pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
@@ -84,10 +86,14 @@ formAd.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
+    // eslint-disable-next-line no-console
     console.log('Валидация пройдена');
   } else {
+    // eslint-disable-next-line no-console
     console.log('что то пошло не так');
   }
 });
+
+makeFormsInactive();
 
 export {makeFormsActive, MAX_PRICE, priceField};
