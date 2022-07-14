@@ -7,7 +7,6 @@ const offerNameByType = {
   hotel: 'Отель',
 };
 
-const mapCanvas = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 const objectsList = document.createElement('div');
 const similarObjects = createObjects();
@@ -82,4 +81,4 @@ similarObjects.forEach((object) => {
   objectsList.append(objectElement);
 });
 
-mapCanvas.appendChild(objectsList.firstChild);
+export {objectsList, similarObjects};

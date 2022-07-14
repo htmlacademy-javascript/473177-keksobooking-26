@@ -1,3 +1,3 @@
 import './form.js';
-import './popup.js';
-
+import './map.js';
+import './slider.js';

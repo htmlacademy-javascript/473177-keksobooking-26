@@ -1,9 +1,9 @@
 const formAd = document.querySelector('.ad-form');
 const formMap = document.querySelector('.map__filters');
 
-const makeFormInactive = () => {
+const makeFormsInactive = () => {
   formAd.classList.add('ad-form--disabled');
-  formMap.classList.add('.map-filters--disabled');
+  formMap.classList.add('map-filters--disabled');
   formAd.childNodes.forEach((child) => {
     child.disabled = true;
   });
@@ -12,11 +12,15 @@ const makeFormInactive = () => {
   });
 };
 
-const makeFormActive = () => {
+const makeFormsActive = () => {
   formAd.classList.remove('ad-form--disabled');
-  formMap.classList.remove('.map-filters--disabled');
-  formAd.children.disabled = false;
-  formMap.children.disabled = false;
+  formMap.classList.remove('map-filters--disabled');
+  formAd.childNodes.forEach((child) => {
+    child.disabled = false;
+  });
+  formMap.childNodes.forEach((child) => {
+    child.disabled = false;
+  });
 };
 
 const pristine = new Pristine(formAd, {
@@ -86,3 +90,4 @@ formAd.addEventListener('submit', (evt) => {
   }
 });
 
+export {makeFormsActive, MAX_PRICE, priceField};
