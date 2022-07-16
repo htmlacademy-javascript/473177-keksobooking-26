@@ -1,5 +1,7 @@
-import {makeFormsActive} from './form.js';
-import {objectsList, similarObjects} from './popup.js';
+import {makeFormsActive, makeFormsInactive} from './util.js';
+import {objectsList} from './popup.js';
+
+makeFormsInactive();
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -68,7 +70,25 @@ const createMarker = (point, popup) => {
     .bindPopup(popup);
 };
 
-for (let i = 0; i < similarObjects.length; i++) {
-  createMarker(similarObjects[i], objectsList.childNodes[i]);
-}
+const renderMarkers = (similarObjects) => {
+  for (let i = 0; i < similarObjects.length; i++) {
+    createMarker(similarObjects[i], objectsList.childNodes[i]);
+  }
+};
+
+const resetMap = () => {
+  map
+    .setView({
+      lat: 35.4122,
+      lng: 139.4130,
+    }, 10);
+  mainMarker
+    .setLatLng({
+      lat: 35.4200,
+      lng: 139.2530,
+    });
+};
+
+
+export {renderMarkers ,resetMap};
 
