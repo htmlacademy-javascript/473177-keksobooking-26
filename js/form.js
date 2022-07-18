@@ -1,5 +1,8 @@
+import { sendData } from './api.js';
+import { showSuccessMessage , showErrorMessage } from './form-messages.js';
+import { resetMap } from './map.js';
+
 const formAd = document.querySelector('.ad-form');
-const formMap = document.querySelector('.map__filters');
 
 const MAX_PRICE = 100000;
 const minPriceOption = {
@@ -14,28 +17,6 @@ const roomsOption = {
   '2': ['2', '1'],
   '3': ['3', '2', '1'],
   '100': '0',
-};
-
-const makeFormsInactive = () => {
-  formAd.classList.add('ad-form--disabled');
-  formMap.classList.add('map-filters--disabled');
-  formAd.childNodes.forEach((child) => {
-    child.disabled = true;
-  });
-  formMap.childNodes.forEach((child) => {
-    child.disabled = true;
-  });
-};
-
-const makeFormsActive = () => {
-  formAd.classList.remove('ad-form--disabled');
-  formMap.classList.remove('map-filters--disabled');
-  formAd.childNodes.forEach((child) => {
-    child.disabled = false;
-  });
-  formMap.childNodes.forEach((child) => {
-    child.disabled = false;
-  });
 };
 
 const pristine = new Pristine(formAd, {
@@ -82,18 +63,39 @@ timein.addEventListener('change', onChangeTimein);
 timeout.addEventListener('change', onChangeTimeout);
 
 
+const resetButton = formAd.querySelector('.ad-form__reset');
+resetButton.addEventListener('click', resetMap);
+
+const submitButton = formAd.querySelector('.ad-form__submit');
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Опубликовываем...';
+};
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+
 formAd.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
-    // eslint-disable-next-line no-console
-    console.log('Валидация пройдена');
-  } else {
-    // eslint-disable-next-line no-console
-    console.log('что то пошло не так');
+    blockSubmitButton();
+    const formData = new FormData(evt.target);
+
+    sendData(() => {
+      showSuccessMessage();
+      formAd.reset();
+      resetMap();
+      unblockSubmitButton();
+    },
+    () => {
+      showErrorMessage();
+      unblockSubmitButton();
+    }, formData);
   }
 });
 
-makeFormsInactive();
 
-export {makeFormsActive, MAX_PRICE, priceField};
+export { MAX_PRICE, priceField};
