@@ -3,6 +3,7 @@ import { resetFilters } from './filter.js';
 import { showSuccessMessage , showErrorMessage } from './form-messages.js';
 import { resetMap } from './map.js';
 
+
 const formAd = document.querySelector('.ad-form');
 
 const MAX_PRICE = 100000;

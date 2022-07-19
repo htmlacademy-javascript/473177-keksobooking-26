@@ -1,5 +1,10 @@
-import {makeFormsActive, makeFormsInactive} from './util.js';
-import {objectsList} from './popup.js';
+import {makeFormsActive, makeFormsInactive, debounce} from './util.js';
+import {renderSimilarObjects} from './popup.js';
+import { filterObjects, onFilterChange } from './filter.js';
+import { getData } from './api.js';
+
+const SIMILAR_OBJECTS_COUNT = 10;
+const RERENDER_DELAY = 500;
 
 makeFormsInactive();
 
@@ -10,9 +15,9 @@ const map = L.map('map-canvas')
     makeFormsActive();
   })
   .setView({
-    lat: 35.4122,
-    lng: 139.4130,
-  }, 10);
+    lat: 35.673,
+    lng: 139.8328,
+  }, 12);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -29,8 +34,8 @@ const mainPinIcon = L.icon({
 
 const mainMarker = L.marker(
   {
-    lat: 35.4200,
-    lng: 139.2530,
+    lat: 35.673,
+    lng: 139.8328,
   },
   {
     draggable: true,
@@ -72,27 +77,42 @@ const createMarker = (point, popup) => {
     .bindPopup(popup);
 };
 
+
 const renderMarkers = (similarObjects) => {
+  const filteredObjects = similarObjects.filter(filterObjects).slice(0, SIMILAR_OBJECTS_COUNT);
+  const objectsList = renderSimilarObjects(filteredObjects);
   markerGroup.clearLayers();
-  for (let i = 0; i < similarObjects.length; i++) {
-    createMarker(similarObjects[i], objectsList.childNodes[i]);
+  for (let i = 0; i < filteredObjects.length; i++) {
+    createMarker(filteredObjects[i], objectsList.childNodes[i]);
   }
+};
+
+
+const showMarkers = () => {
+  getData((objects) => {
+    renderMarkers(objects);
+    onFilterChange(debounce(
+      () => {
+        renderMarkers(objects);
+      }), RERENDER_DELAY);
+  });
 };
 
 const resetMap = () => {
   map
     .setView({
-      lat: 35.4122,
-      lng: 139.4130,
-    }, 10);
+      lat: 35.673,
+      lng: 139.8328,
+    }, 12);
   mainMarker
     .setLatLng({
-      lat: 35.4200,
-      lng: 139.2530,
+      lat: 35.673,
+      lng: 139.8328,
     });
   addressField.value = `${mainMarker._latlng.lat.toFixed(5)}, ${mainMarker._latlng.lng.toFixed(5)}`;
+  showMarkers();
 };
 
 
-export {renderMarkers ,resetMap};
+export { showMarkers, resetMap};
 

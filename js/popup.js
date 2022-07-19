@@ -86,6 +86,7 @@ const renderSimilarObjects = (similarObjects) => {
   });
   objectsList.innerHTML = '';
   objectsList.append(objectsListFragment);
+  return objectsList;
 };
 
 export {objectsList, renderSimilarObjects};
