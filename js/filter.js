@@ -41,23 +41,11 @@ const filterPrice = (object) => {
     case 'any':
       return true;
     case 'low':
-      if (object.offer.price < 10000) {
-        return true;
-      } else {
-        return false;
-      }
+      return object.offer.price < 10000;
     case 'middle':
-      if (object.offer.price >= 10000 & object.offer.price <= 50000) {
-        return true;
-      } else {
-        return false;
-      }
+      return object.offer.price >= 10000 & object.offer.price <= 50000;
     case 'high':
-      if (object.offer.price > 50000) {
-        return true;
-      } else {
-        return false;
-      }
+      return object.offer.price > 50000;
   }
 };
 
