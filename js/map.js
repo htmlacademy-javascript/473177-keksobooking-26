@@ -3,6 +3,8 @@ import {objectsList} from './popup.js';
 
 makeFormsInactive();
 
+const addressField = document.querySelector('#address');
+
 const map = L.map('map-canvas')
   .on('load', () => {
     makeFormsActive();
@@ -37,8 +39,8 @@ const mainMarker = L.marker(
 );
 
 mainMarker.addTo(map);
+addressField.value = `${mainMarker._latlng.lat.toFixed(5)}, ${mainMarker._latlng.lng.toFixed(5)}`;
 
-const addressField = document.querySelector('#address');
 mainMarker.on('moveend', (evt) => {
   const latLng = evt.target.getLatLng();
   const lat = latLng.lat.toFixed(4);
@@ -71,6 +73,7 @@ const createMarker = (point, popup) => {
 };
 
 const renderMarkers = (similarObjects) => {
+  markerGroup.clearLayers();
   for (let i = 0; i < similarObjects.length; i++) {
     createMarker(similarObjects[i], objectsList.childNodes[i]);
   }
@@ -87,6 +90,7 @@ const resetMap = () => {
       lat: 35.4200,
       lng: 139.2530,
     });
+  addressField.value = `${mainMarker._latlng.lat.toFixed(5)}, ${mainMarker._latlng.lng.toFixed(5)}`;
 };
 
 

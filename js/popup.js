@@ -10,6 +10,7 @@ const cardTemplate = document.querySelector('#card').content.querySelector('.pop
 const objectsList = document.createElement('div');
 
 const renderSimilarObjects = (similarObjects) => {
+  const objectsListFragment = document.createDocumentFragment();
   similarObjects.forEach((object) => {
     const objectElement = cardTemplate.cloneNode(true);
     const title = objectElement.querySelector('.popup__title');
@@ -81,10 +82,10 @@ const renderSimilarObjects = (similarObjects) => {
     }
     //avatar
     avatar.src = object.author.avatar;
-    objectsList.append(objectElement);
+    objectsListFragment.append(objectElement);
   });
+  objectsList.innerHTML = '';
+  objectsList.append(objectsListFragment);
 };
-
-//getData(renderSimilarObjects());
 
 export {objectsList, renderSimilarObjects};
