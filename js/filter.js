@@ -57,4 +57,8 @@ const onFilterChange = (cb) => {
   mapFilters.addEventListener('change', cb);
 };
 
-export {filterObjects, onFilterChange};
+const resetFilters = () => {
+  mapFilters.reset();
+};
+
+export {filterObjects, onFilterChange, resetFilters};

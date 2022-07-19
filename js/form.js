@@ -1,4 +1,5 @@
 import { sendData } from './api.js';
+import { resetFilters } from './filter.js';
 import { showSuccessMessage , showErrorMessage } from './form-messages.js';
 import { resetMap } from './map.js';
 
@@ -66,6 +67,7 @@ timeout.addEventListener('change', onChangeTimeout);
 const resetButton = formAd.querySelector('.ad-form__reset');
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
+  resetFilters();
   formAd.reset();
   resetMap();
 });
@@ -91,6 +93,7 @@ formAd.addEventListener('submit', (evt) => {
     sendData(() => {
       showSuccessMessage();
       formAd.reset();
+      resetFilters();
       resetMap();
       unblockSubmitButton();
     },
