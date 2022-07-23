@@ -1,4 +1,4 @@
-import { MAX_PRICE, priceField } from './form.js';
+import { MAX_PRICE, priceFieldElement } from './form.js';
 
 const sliderElement = document.querySelector('.ad-form__slider');
 
@@ -21,5 +21,5 @@ noUiSlider.create(sliderElement, {
 });
 
 sliderElement.noUiSlider.on('update', () => {
-  priceField.value = sliderElement.noUiSlider.get();
+  priceFieldElement.value = sliderElement.noUiSlider.get();
 });
