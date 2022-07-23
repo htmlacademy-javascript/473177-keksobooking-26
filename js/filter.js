@@ -1,43 +1,43 @@
-const typeInput = document.querySelector('[name="housing-type"]');
-const priceInput = document.querySelector('[name="housing-price"]');
-const roomsInput = document.querySelector('[name="housing-rooms"]');
-const guestsInput = document.querySelector('[name="housing-guests"]');
-const featuresInputs = document.querySelector('#housing-features');
-const mapFilters = document.querySelector('.map__filters');
+const typeInputElement = document.querySelector('[name="housing-type"]');
+const priceInputElement = document.querySelector('[name="housing-price"]');
+const roomsInputElement = document.querySelector('[name="housing-rooms"]');
+const guestsInputElement = document.querySelector('[name="housing-guests"]');
+const featuresInputsElement = document.querySelector('#housing-features');
+const mapFiltersElement = document.querySelector('.map__filters');
 
 const filterFeatures = (object) => {
-  const featuresChecked = featuresInputs.querySelectorAll('input:checked');
-  if (featuresChecked.length === 0) {
+  const featuresCheckedElements = featuresInputsElement.querySelectorAll('input:checked');
+  if (featuresCheckedElements.length === 0) {
     return true;
   } else if (!object.offer.features) {
     return false;
   }
-  return Array.from(featuresChecked).every((feature) => object.offer.features.includes(feature.value));
+  return Array.from(featuresCheckedElements).every((feature) => object.offer.features.includes(feature.value));
 };
 
 const filterType = (object) => {
-  if (object.offer.type === typeInput.value || typeInput.value === 'any') {
+  if (object.offer.type === typeInputElement.value || typeInputElement.value === 'any') {
     return true;
   }
   return false;
 };
 
 const filterRooms = (object) => {
-  if (object.offer.rooms === Number(roomsInput.value) || roomsInput.value === 'any') {
+  if (object.offer.rooms === Number(roomsInputElement.value) || roomsInputElement.value === 'any') {
     return true;
   }
   return false;
 };
 
 const filterGuests = (object) => {
-  if (object.offer.guests === Number(guestsInput.value) || guestsInput.value === 'any') {
+  if (object.offer.guests === Number(guestsInputElement.value) || guestsInputElement.value === 'any') {
     return true;
   }
   return false;
 };
 
 const filterPrice = (object) => {
-  switch (priceInput.value) {
+  switch (priceInputElement.value) {
     case 'any':
       return true;
     case 'low':
@@ -54,11 +54,11 @@ const filterObjects = (object) =>
 
 
 const onFilterChange = (cb) => {
-  mapFilters.addEventListener('change', cb);
+  mapFiltersElement.addEventListener('change', cb);
 };
 
 const resetFilters = () => {
-  mapFilters.reset();
+  mapFiltersElement.reset();
 };
 
 export {filterObjects, onFilterChange, resetFilters};

@@ -8,7 +8,7 @@ const RERENDER_DELAY = 500;
 
 makeFormsInactive();
 
-const addressField = document.querySelector('#address');
+const addressFieldElement = document.querySelector('#address');
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -44,13 +44,13 @@ const mainMarker = L.marker(
 );
 
 mainMarker.addTo(map);
-addressField.value = `${mainMarker._latlng.lat.toFixed(5)}, ${mainMarker._latlng.lng.toFixed(5)}`;
+addressFieldElement.value = `${mainMarker._latlng.lat.toFixed(5)}, ${mainMarker._latlng.lng.toFixed(5)}`;
 
 mainMarker.on('moveend', (evt) => {
   const latLng = evt.target.getLatLng();
   const lat = latLng.lat.toFixed(4);
   const lng = latLng.lng.toFixed(4);
-  addressField.value = `${lat}, ${lng}`;
+  addressFieldElement.value = `${lat}, ${lng}`;
 });
 
 const pin = L.icon({
@@ -109,7 +109,7 @@ const resetMap = () => {
       lat: 35.673,
       lng: 139.8328,
     });
-  addressField.value = `${mainMarker._latlng.lat.toFixed(5)}, ${mainMarker._latlng.lng.toFixed(5)}`;
+  addressFieldElement.value = `${mainMarker._latlng.lat.toFixed(5)}, ${mainMarker._latlng.lng.toFixed(5)}`;
   showMarkers();
 };
 

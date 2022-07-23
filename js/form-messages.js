@@ -1,9 +1,9 @@
 import { isEscapeKey } from './util.js';
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-const successMessage = successMessageTemplate.cloneNode(true);
-successMessage.classList.add('hidden');
-document.body.appendChild(successMessage);
+const successMessageElement = successMessageTemplate.cloneNode(true);
+successMessageElement.classList.add('hidden');
+document.body.appendChild(successMessageElement);
 
 const onSuccessEsckeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -21,25 +21,25 @@ const onSuccessClick = (evt) => {
 
 
 const showSuccessMessage = () => {
-  successMessage.classList.remove('hidden');
+  successMessageElement.classList.remove('hidden');
   document.addEventListener('click', onSuccessClick);
   document.addEventListener('keydown', onSuccessEsckeydown);
 };
 
 const hideSuccessMessage = () => {
-  successMessage.classList.add('hidden');
+  successMessageElement.classList.add('hidden');
   document.removeEventListener('click', onSuccessClick);
   document.removeEventListener('keydown', onSuccessEsckeydown);
 };
 
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-const errorMessage = errorMessageTemplate.cloneNode(true);
-document.body.appendChild(errorMessage);
-errorMessage.classList.add('hidden');
-const closeErrorButton = document.querySelector('.error__button');
+const errorMessageElement = errorMessageTemplate.cloneNode(true);
+document.body.appendChild(errorMessageElement);
+errorMessageElement.classList.add('hidden');
+const closeErrorButtonElement = document.querySelector('.error__button');
 
 const hideErrorMessage = () => {
-  errorMessage.classList.add('hidden');
+  errorMessageElement.classList.add('hidden');
   // eslint-disable-next-line no-use-before-define
   document.removeEventListener('click', onErrorClick);
   // eslint-disable-next-line no-use-before-define
@@ -59,10 +59,10 @@ const onErrorEscapedown = (evt) => {
 };
 
 const showErrorMessage = () => {
-  errorMessage.classList.remove('hidden');
+  errorMessageElement.classList.remove('hidden');
   document.addEventListener('click', onErrorClick);
   document.addEventListener('keydown', onErrorEscapedown);
-  closeErrorButton.addEventListener('click', hideErrorMessage);
+  closeErrorButtonElement.addEventListener('click', hideErrorMessage);
 };
 
 export {showSuccessMessage , showErrorMessage};

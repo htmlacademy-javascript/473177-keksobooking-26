@@ -14,27 +14,27 @@ const getRandomPositiveFloat = (a, b, digits = 5) => {
   return +result.toFixed(digits);
 };
 
-const formAd = document.querySelector('.ad-form');
-const formMap = document.querySelector('.ad-form');
+const formAdElement = document.querySelector('.ad-form');
+const formMapElement = document.querySelector('.ad-form');
 
 const makeFormsInactive = () => {
-  formAd.classList.add('ad-form--disabled');
-  formMap.classList.add('ad-form--disabled');
-  formAd.childNodes.forEach((child) => {
+  formAdElement.classList.add('ad-form--disabled');
+  formMapElement.classList.add('ad-form--disabled');
+  formAdElement.childNodes.forEach((child) => {
     child.disabled = true;
   });
-  formMap.childNodes.forEach((child) => {
+  formMapElement.childNodes.forEach((child) => {
     child.disabled = true;
   });
 };
 
 const makeFormsActive = () => {
-  formAd.classList.remove('ad-form--disabled');
-  formMap.classList.remove('ad-form--disabled');
-  formAd.childNodes.forEach((child) => {
+  formAdElement.classList.remove('ad-form--disabled');
+  formMapElement.classList.remove('ad-form--disabled');
+  formAdElement.childNodes.forEach((child) => {
     child.disabled = false;
   });
-  formMap.childNodes.forEach((child) => {
+  formMapElement.childNodes.forEach((child) => {
     child.disabled = false;
   });
 };
@@ -42,23 +42,23 @@ const makeFormsActive = () => {
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const showAlertMessage = (message) => {
-  const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = '100';
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.left = '0';
-  alertContainer.style.top = '0';
-  alertContainer.style.right = '0';
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = 'red';
+  const alertElement = document.createElement('div');
+  alertElement.style.zIndex = '100';
+  alertElement.style.position = 'absolute';
+  alertElement.style.left = '0';
+  alertElement.style.top = '0';
+  alertElement.style.right = '0';
+  alertElement.style.padding = '10px 3px';
+  alertElement.style.fontSize = '30px';
+  alertElement.style.textAlign = 'center';
+  alertElement.style.backgroundColor = 'red';
 
-  alertContainer.textContent = message;
+  alertElement.textContent = message;
 
-  document.body.append(alertContainer);
+  document.body.append(alertElement);
 
   setTimeout(() => {
-    alertContainer.remove();
+    alertElement.remove();
   }, ALERT_SHOW_TIME);
 };
 

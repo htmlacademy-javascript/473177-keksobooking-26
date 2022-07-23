@@ -4,7 +4,7 @@ import { showSuccessMessage , showErrorMessage } from './form-messages.js';
 import { resetMap } from './map.js';
 
 
-const formAd = document.querySelector('.ad-form');
+const formAdElement = document.querySelector('.ad-form');
 
 const MAX_PRICE = 100000;
 const minPriceOption = {
@@ -21,7 +21,7 @@ const roomsOption = {
   '100': '0',
 };
 
-const pristine = new Pristine(formAd, {
+const pristine = new Pristine(formAdElement, {
   classTo: 'ad-form__element',
   errorTextParent: 'ad-form__element',
   errorTextTag: 'span',
@@ -29,13 +29,13 @@ const pristine = new Pristine(formAd, {
 });
 
 //Валидация соотношения количества гостей и комнат
-const roomsField = formAd.querySelector('[name = "rooms"]');
-const guestsField = formAd.querySelector('[name = "capacity"]');
+const roomsFieldElement = formAdElement.querySelector('[name = "rooms"]');
+const guestsFieldElement = formAdElement.querySelector('[name = "capacity"]');
 
 
-const validateGuests = () => roomsOption[roomsField.value].includes(guestsField.value);
+const validateGuests = () => roomsOption[roomsFieldElement.value].includes(guestsFieldElement.value);
 const getGuestsErrorMessage = () => {
-  switch (roomsField.value) {
+  switch (roomsFieldElement.value) {
     case '1': return 'Для 1 гостя';
     case '2': return 'Для 1 или 2 гостей';
     case '3': return 'Для 1, 2 или 3 гостей';
@@ -43,48 +43,48 @@ const getGuestsErrorMessage = () => {
   }
 };
 
-pristine.addValidator(guestsField, validateGuests, getGuestsErrorMessage);
+pristine.addValidator(guestsFieldElement, validateGuests, getGuestsErrorMessage);
 
 //Валидация соотношения типа жилья и мин цены за ночь
-const typeField = formAd.querySelector('[name="type"]');
-const priceField = formAd.querySelector('[name="price"]');
-const validatePrice = () => (priceField.value >= minPriceOption[typeField.value]) && (priceField.value <= MAX_PRICE);
-const getPriceErrorMessage = () => `Цена должна быть от ${minPriceOption[typeField.value]} до ${MAX_PRICE}`;
-pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
+const typeFieldElement = formAdElement.querySelector('[name="type"]');
+const priceFieldElement = formAdElement.querySelector('[name="price"]');
+const validatePrice = () => (priceFieldElement.value >= minPriceOption[typeFieldElement.value]) && (priceFieldElement.value <= MAX_PRICE);
+const getPriceErrorMessage = () => `Цена должна быть от ${minPriceOption[typeFieldElement.value]} до ${MAX_PRICE}`;
+pristine.addValidator(priceFieldElement, validatePrice, getPriceErrorMessage);
 
 //Синхронизация времени заезда и выезда
-const timein = formAd.querySelector('[name="timein"]');
-const timeout = formAd.querySelector('[name="timeout"]');
+const timeinElement = formAdElement.querySelector('[name="timein"]');
+const timeoutElement = formAdElement.querySelector('[name="timeout"]');
 const onChangeTimein = () => {
-  timeout.value = timein.value;
+  timeoutElement.value = timeinElement.value;
 };
 const onChangeTimeout = () => {
-  timein.value = timeout.value;
+  timeinElement.value = timeoutElement.value;
 };
-timein.addEventListener('change', onChangeTimein);
-timeout.addEventListener('change', onChangeTimeout);
+timeinElement.addEventListener('change', onChangeTimein);
+timeoutElement.addEventListener('change', onChangeTimeout);
 
 
-const resetButton = formAd.querySelector('.ad-form__reset');
-resetButton.addEventListener('click', (evt) => {
+const resetButtonElement = formAdElement.querySelector('.ad-form__reset');
+resetButtonElement.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetFilters();
-  formAd.reset();
+  formAdElement.reset();
   resetMap();
 });
 
-const submitButton = formAd.querySelector('.ad-form__submit');
+const submitButtonElement = formAdElement.querySelector('.ad-form__submit');
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Опубликовываем...';
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = 'Опубликовываем...';
 };
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'Опубликовать';
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = 'Опубликовать';
 };
 
 
-formAd.addEventListener('submit', (evt) => {
+formAdElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
@@ -93,7 +93,7 @@ formAd.addEventListener('submit', (evt) => {
 
     sendData(() => {
       showSuccessMessage();
-      formAd.reset();
+      formAdElement.reset();
       resetFilters();
       resetMap();
       unblockSubmitButton();
@@ -106,4 +106,4 @@ formAd.addEventListener('submit', (evt) => {
 });
 
 
-export { MAX_PRICE, priceField};
+export { MAX_PRICE, priceFieldElement};
