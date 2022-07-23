@@ -72,8 +72,8 @@ const renderSimilarObjects = (similarObjects) => {
     }
 
     //photos
+    photosElement.innerHTML = '';
     if (object.offer.photos) {
-      photosElement.innerHTML = '';
       object.offer.photos.forEach((photoUrl) => {
         const pictureElement = photoElement.cloneNode(true);
         pictureElement.src = photoUrl;
