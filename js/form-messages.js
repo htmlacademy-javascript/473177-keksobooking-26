@@ -5,33 +5,31 @@ const successMessageElement = successMessageTemplate.cloneNode(true);
 successMessageElement.classList.add('hidden');
 document.body.appendChild(successMessageElement);
 
+
 const hideSuccessMessage = () => {
   successMessageElement.classList.add('hidden');
-  document.removeEventListener('click', (evt) => {
-    evt.preventDefault();
-    hideSuccessMessage();
-  });
-  document.removeEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      hideSuccessMessage();
-    }
-  });
+  document.removeEventListener('click', onSuccessClick);
+  document.removeEventListener('keydown', onSuccessKeydown);
 };
+
 
 const showSuccessMessage = () => {
   successMessageElement.classList.remove('hidden');
-  document.addEventListener('click', (evt) => {
+  document.addEventListener('click', onSuccessClick);
+  document.addEventListener('keydown', onSuccessKeydown);
+};
+
+function onSuccessClick (evt) {
+  evt.preventDefault();
+  hideSuccessMessage();
+}
+
+function onSuccessKeydown (evt) {
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     hideSuccessMessage();
-  });
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      hideSuccessMessage();
-    }
-  });
-};
+  }
+}
 
 
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -42,33 +40,29 @@ const closeErrorButtonElement = document.querySelector('.error__button');
 
 const hideErrorMessage = () => {
   errorMessageElement.classList.add('hidden');
-  document.removeEventListener('click', (evt) => {
-    evt.preventDefault();
-    hideErrorMessage();
-  });
-  document.removeEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      hideErrorMessage();
-    }
-  });
+  document.removeEventListener('click', onErrorClick);
+  document.removeEventListener('keydown', onErrorKeydown);
 };
 
 
 const showErrorMessage = () => {
   errorMessageElement.classList.remove('hidden');
-  document.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    hideErrorMessage();
-  });
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      hideErrorMessage();
-    }
-  });
+  document.addEventListener('click', onErrorClick);
+  document.addEventListener('keydown', onErrorKeydown);
   closeErrorButtonElement.addEventListener('click', hideErrorMessage);
 };
+
+function onErrorClick (evt) {
+  evt.preventDefault();
+  hideErrorMessage();
+}
+
+function onErrorKeydown (evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    hideErrorMessage();
+  }
+}
 
 export {showSuccessMessage , showErrorMessage};
 

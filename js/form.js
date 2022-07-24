@@ -2,7 +2,7 @@ import { sendData } from './api.js';
 import { resetFilters } from './filter.js';
 import { showSuccessMessage , showErrorMessage } from './form-messages.js';
 import { resetMap } from './map.js';
-
+import { resetSlider } from './slider.js';
 
 const formAdElement = document.querySelector('.ad-form');
 
@@ -71,6 +71,7 @@ resetButtonElement.addEventListener('click', (evt) => {
   resetFilters();
   formAdElement.reset();
   resetMap();
+  resetSlider();
 });
 
 const submitButtonElement = formAdElement.querySelector('.ad-form__submit');
@@ -96,6 +97,7 @@ formAdElement.addEventListener('submit', (evt) => {
       formAdElement.reset();
       resetFilters();
       resetMap();
+      resetSlider();
       unblockSubmitButton();
     },
     () => {
@@ -105,5 +107,3 @@ formAdElement.addEventListener('submit', (evt) => {
   }
 });
 
-
-export { MAX_PRICE, priceFieldElement};
